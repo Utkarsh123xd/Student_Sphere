@@ -252,11 +252,11 @@ function Sidebar() {
         <li className="sidebar-menu-items tweet-list-item">
           <Dialog>
             <DialogTrigger className="!mx-2 sm:!mx-0" asChild>
-              <button className="tweetBtn sidebar-menu-tweetBtn">Tweet</button>
+              <button className="tweetBtn sidebar-menu-tweetBtn">Drop</button>
             </DialogTrigger>
             <DialogContent className="!w-full !max-w-[95%] lg:!max-w-1/2 h-3/4 overflow-hidden !p-4 flex flex-col">
               <DialogHeader>
-                <DialogTitle>New Tweet</DialogTitle>
+                <DialogTitle>New Drop</DialogTitle>
               </DialogHeader>
               <form
                 onSubmit={(e) => {
@@ -296,7 +296,7 @@ function Sidebar() {
                     disabled={!checkInput}
                     type="submit"
                   >
-                    Tweet
+                    Drop
                   </button>
                 </div>
                 <div className="tagArea overflow-x-auto whitespace-nowrap   ">

@@ -58,7 +58,7 @@ function SingleTweet({ tweetId }: { tweetId: string }) {
 
   if (!tweet) {
     return (
-      <div className="text-center text-gray-500 !mt-20">Tweet not found.</div>
+      <div className="text-center text-gray-500 !mt-20">Drop not found.</div>
     );
   }
 
