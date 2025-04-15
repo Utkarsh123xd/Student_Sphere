@@ -9,8 +9,8 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: "Twitter Clone",
-  description: "A Twitter clone built with Next.js",
+  title: "Student Sphere",
+  description: "A Student Sphere Platform built with Next.js",
   viewport: "width=device-width, initial-scale=1",
 };
 

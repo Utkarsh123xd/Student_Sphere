@@ -67,7 +67,7 @@ function Sidebar() {
 
   const tags = [
     "Sports",
-    "Politics",
+    "Fitness",
     "Education",
     "Tech",
     "Finance",
@@ -150,7 +150,7 @@ function Sidebar() {
           heading: "Success 🎉",
           message: (
             <div>
-              Tweet sent successfully,{" "}
+              Drop sent successfully,{" "}
               <Link
                 href={`/tweet/${response.data.tweet?.postedTweetTime}`}
                 style={{ textDecoration: "underline" }}
@@ -291,6 +291,7 @@ function Sidebar() {
                     value={img}
                     onChange={(e) => setImg(e.target.value)}
                   />
+                  
                   <button
                     className={checkInput ? "tweetBtn" : "disabled"}
                     disabled={!checkInput}

@@ -393,43 +393,42 @@ function ProfileBody({ userName }: { userName: string }) {
 
                 <div className="!mb-4">
                   <label className="text-gray-700 block font-medium !mb-2">
-                    Year
+                    Year of Graduation
                   </label>
                   <input
                     type="text"
                     className="!text-base !w-full !border-b !border-border !p-2"
-                    placeholder="Enter your year"
+                    placeholder="Enter your year of graduation"
                     defaultValue={additionalInfo.year}
                     onBlur={(e) => handleProfileUpdate("year", e.target.value)}
                   />
                 </div>
 
+              
                 <div className="!mb-4">
                   <label className="text-gray-700 block font-medium !mb-2">
-                    Graduation
+                    CGPA
                   </label>
                   <input
                     type="text"
                     className="!text-base !w-full !border-b !border-border !p-2"
-                    placeholder="Enter your graduation year"
-                    defaultValue={additionalInfo.graduation}
-                    onBlur={(e) =>
-                      handleProfileUpdate("graduation", e.target.value)
-                    }
+                    placeholder="Enter your CGPA"
+                    defaultValue={additionalInfo.cg}
+                    onBlur={(e) => handleProfileUpdate("cg", e.target.value)}
                   />
                 </div>
 
                 <div className="!mb-4">
                   <label className="text-gray-700 block font-medium !mb-2">
-                    Undergraduate College
+                    Internshhip Experience
                   </label>
                   <input
                     type="text"
                     className="!text-base !w-full !border-b !border-border !p-2"
-                    placeholder="Enter your undergraduate college"
-                    defaultValue={additionalInfo.undergradCollege}
+                    placeholder="Enter your Internship Experience along with the Company you were associated with"
+                    defaultValue={additionalInfo.graduation}
                     onBlur={(e) =>
-                      handleProfileUpdate("undergradCollege", e.target.value)
+                      handleProfileUpdate("graduation", e.target.value)
                     }
                   />
                 </div>
@@ -449,19 +448,23 @@ function ProfileBody({ userName }: { userName: string }) {
                   />
                 </div>
 
+
                 <div className="!mb-4">
                   <label className="text-gray-700 block font-medium !mb-2">
-                    CGPA
+                    Job Status
                   </label>
                   <input
                     type="text"
                     className="!text-base !w-full !border-b !border-border !p-2"
-                    placeholder="Enter your CGPA"
-                    defaultValue={additionalInfo.cg}
-                    onBlur={(e) => handleProfileUpdate("cg", e.target.value)}
+                    placeholder="Enter your current Job Status"
+                    defaultValue={additionalInfo.undergradCollege}
+                    onBlur={(e) =>
+                      handleProfileUpdate("undergradCollege", e.target.value)
+                    }
                   />
                 </div>
 
+  
                 <div className="!mb-4">
                   <label className="text-gray-700 block font-medium !mb-2">
                     LinkedIn Link
@@ -479,12 +482,12 @@ function ProfileBody({ userName }: { userName: string }) {
 
                 <div className="!mb-4">
                   <label className="text-gray-700 block font-medium !mb-2">
-                    Major
+                    Projects
                   </label>
                   <input
                     type="text"
                     className="!text-base !w-full !border-b !border-border !p-2"
-                    placeholder="Enter your major"
+                    placeholder="Enter your project details in brief"
                     defaultValue={additionalInfo.major}
                     onBlur={(e) => handleProfileUpdate("major", e.target.value)}
                   />
@@ -504,7 +507,7 @@ function ProfileBody({ userName }: { userName: string }) {
       </div>
 
       <div className="userTweets">
-        <div className="text-xl font-bold !mb-4 !ml-4">Tweets</div>
+        <div className="text-xl font-bold !mb-4 !ml-4">Drops</div>
         <div className="tweets">
           <ul className="tweet-list">
             {loading ? (
@@ -537,7 +540,7 @@ function ProfileBody({ userName }: { userName: string }) {
       {!loading && !error && tweets.length > 0 && (
         <form className="showMore-form !mb-10" onSubmit={showMoreTweets}>
           <button className="showMore" type="submit">
-            Show more tweets
+            Show more Drops
           </button>
         </form>
       )}

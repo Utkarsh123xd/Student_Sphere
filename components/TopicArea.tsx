@@ -21,7 +21,7 @@ function TopicArea({ tag: initialTag }: { tag: string }) {
 
   const tags = [
     "Sports",
-    "Politics",
+    "Fitness",
     "Education",
     "Tech",
     "Finance",
@@ -116,7 +116,7 @@ function TopicArea({ tag: initialTag }: { tag: string }) {
 
       {/* Tweets Section */}
       <div className="userTweets">
-        <div className="text-xl font-bold !mb-4 !ml-4">Tweets</div>
+        <div className="text-xl font-bold !mb-4 !ml-4">Drops</div>
         <div className="tweets">
           <ul className="tweet-list">
             {loading ? (
@@ -139,7 +139,7 @@ function TopicArea({ tag: initialTag }: { tag: string }) {
 
       {tweets.length === 0 && !loading && (
         <div className="text-center text-gray-500 !mt-20">
-          No tweets found for this topic.
+          No drops found for this topic.
         </div>
       )}
 
@@ -147,7 +147,7 @@ function TopicArea({ tag: initialTag }: { tag: string }) {
       {tweets.length > 0 && !loading && (
         <form className="showMore-form !mb-10" onSubmit={loadMoreTweets}>
           <button className="showMore" type="submit" disabled={loading}>
-            Show More Tweets
+            Show More Drops
           </button>
         </form>
       )}

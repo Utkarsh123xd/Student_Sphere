@@ -73,7 +73,7 @@ function SearchArea() {
       >
         <input
           autoFocus
-          placeholder="Search users or tweets..."
+          placeholder="Search users or drops..."
           value={text}
           onChange={handleChange}
         ></input>
@@ -89,7 +89,7 @@ function SearchArea() {
           </button>
           {(users.length > 0 || tweets.length > 0) && (
             <div className="text-sm text-gray-500 !mr-2">
-              {users.length} users found, {tweets.length} tweets found
+              {users.length} users found, {tweets.length} drops found
             </div>
           )}
         </div>
@@ -102,7 +102,7 @@ function SearchArea() {
             <Tabs defaultValue="users">
               <TabsList>
                 <TabsTrigger value="users">Users</TabsTrigger>
-                <TabsTrigger value="tweets">Tweets</TabsTrigger>
+                <TabsTrigger value="tweets">Drops</TabsTrigger>
               </TabsList>
               <TabsContent value="users">
                 {users.map((user) => (
@@ -128,7 +128,7 @@ function SearchArea() {
                     onClick={loadMoreTweets}
                     className="!w-full text-center !my-10 showMore"
                   >
-                    Show More Tweets
+                    Show More Drops 
                   </button>
                 )}
               </TabsContent>
