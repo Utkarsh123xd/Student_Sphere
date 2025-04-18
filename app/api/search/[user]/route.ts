@@ -44,7 +44,7 @@ export async function GET(
       if (t.tag) tagFrequency[t.tag] = (tagFrequency[t.tag] || 0) + 1;
     });
     const topTags = Object.entries(tagFrequency)
-      .sort((a, b) => b[1] - a[1])
+      .sort((a: [string, number], b: [string, number]) => b[1] - a[1])
       .slice(0, 5)
       .map(([tag]) => tag);
 
