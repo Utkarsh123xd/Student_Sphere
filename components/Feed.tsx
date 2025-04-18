@@ -146,7 +146,7 @@ function Feed() {
       {!loading && !error && tweets.length > 0 && (
         <form className="showMore-form !mb-10" onSubmit={addTweets}>
           <button className="text-lg showMore" type="submit">
-            Show more tweets
+            Show more drops
           </button>
         </form>
       )}
