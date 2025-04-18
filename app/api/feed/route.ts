@@ -84,7 +84,7 @@ export async function POST(req: Request) {
       content: tweetInfo.content,
       retweets: [],
       tag: tweetInfo.tag,
-      postedTweetTime: moment().format("MMMM Do YYYY, h:mm:ss a"),
+      postedTweetTime: tweetInfo.postedTweetTime || moment().format("MMMM Do YYYY, h:mm:ss a"),
       image: body.image || null, // Set image to null if not provided
     });
 

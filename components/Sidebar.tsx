@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { BsTwitter } from "react-icons/bs";
 import { BiHome } from "react-icons/bi";
+import { BiCalendarEvent } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { AiFillCamera } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -39,6 +40,7 @@ function Sidebar() {
   const [img, setImg] = useState("");
   const [isImageSelected, setIsImageSelected] = useState(false);
   const [tag, setTag] = useState("");
+  const [date, setDate] = useState('');
   const [index1, setIndex1] = useState<number | null>(null);
   const url = useContext(UrlContext);
   const pathname = usePathname();
@@ -73,6 +75,7 @@ function Sidebar() {
     "Finance",
     "Gaming",
     "Entertainment",
+    "Event"
   ];
 
   const checkInput = input || img;
@@ -129,7 +132,7 @@ function Sidebar() {
       tweet: {
         content: input,
         tag: tag,
-        postedTweetTime: moment().format("MMMM Do YYYY, h:mm:ss a"),
+        postedTweetTime: date ? moment(date).format("MMMM Do YYYY") : moment().format("MMMM Do YYYY, h:mm:ss a"),
       },
       image: img || "", // Include the image or an empty string if not provided
     };
@@ -224,6 +227,16 @@ function Sidebar() {
           </Link>
         </li>
         <li className="sidebar-menu-items">
+            <Link
+              href="/event"
+              className={pathname === "/event" ? "sidebar-active" : ""}
+            >
+              <BiCalendarEvent />
+              <div className="hidden sm:block">Events</div>
+            </Link>
+        </li>
+
+        <li className="sidebar-menu-items">
           <Link
             href={`/profile/${activeUser}`}
             className={
@@ -275,6 +288,12 @@ function Sidebar() {
                   type="text"
                   value={input}
                   onChange={handleChange}
+                  className="w-full p-2 border border-gray-300 rounded-md"
+                />
+                <input
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
                   className="w-full p-2 border border-gray-300 rounded-md"
                 />
                 <div className="tweet-flex flex items-center gap-4">
