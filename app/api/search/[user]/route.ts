@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import { MONGODB_URI, validateToken } from "utils/utils";
 const { User, Tweet } = require("utils/models/File");
 
-// Ensure Mongoose connection is established
 if (!global.mongoose) {
   global.mongoose = mongoose.connect(MONGODB_URI).catch((err) => {
     console.error("Error connecting to MongoDB:", err);
@@ -17,10 +16,9 @@ export async function GET(
   try {
     const { user } = await params;
     const url = new URL(req.url);
-    const tweetsToSkip = parseInt(url.searchParams.get("skip") || "0"); // Pagination: Number of tweets to skip
-    const tweetsLimit = parseInt(url.searchParams.get("limit") || "10"); // Pagination: Number of tweets to fetch per request
+    const tweetsToSkip = parseInt(url.searchParams.get("skip") || "0");
+    const tweetsLimit = parseInt(url.searchParams.get("limit") || "10");
 
-    // Validate the token and get the active user
     const validationResponse = await validateToken(req);
     if (validationResponse.status !== "ok") {
       return NextResponse.json(
@@ -30,8 +28,28 @@ export async function GET(
     }
     const activeUser = validationResponse.user.username;
 
-    // Search for users matching the query
-    const users = await User.find({
+    // Search for tweets matching the query
+    const tweets = await Tweet.find({
+      content: { $regex: `${user}`, $options: "i" },
+    })
+      .populate("postedBy", "username avatar")
+      .populate("comments")
+      .sort({ createdAt: -1 })
+      .skip(tweetsToSkip)
+      .limit(tweetsLimit);
+
+    // Get tags from tweets for recommendations
+    const tagFrequency = {};
+    tweets.forEach((t) => {
+      if (t.tag) tagFrequency[t.tag] = (tagFrequency[t.tag] || 0) + 1;
+    });
+    const topTags = Object.entries(tagFrequency)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([tag]) => tag);
+
+    // Search for users matching query
+    const matchedUsers = await User.find({
       $or: [
         { username: { $regex: user, $options: "i" } },
         { program: { $regex: user, $options: "i" } },
@@ -46,21 +64,27 @@ export async function GET(
       ],
     });
 
-    // Search for tweets matching the query with pagination
-    const tweets = await Tweet.find({
-      content: { $regex: `${user}`, $options: "i" },
-    })
-      .populate("postedBy", "username avatar")
-      .populate("comments")
-      .sort({ createdAt: -1 }) // Sort tweets by creation date (newest first)
-      .skip(tweetsToSkip) // Skip the specified number of tweets
-      .limit(tweetsLimit); // Limit the number of tweets returned
+    // Add blend-like scoring
+    const scoredUsers = matchedUsers
+      .map((u) => {
+        let score = 0;
+        if (u.username?.toLowerCase().includes(user.toLowerCase())) score += 3;
+        if (u.program?.toLowerCase().includes(user.toLowerCase())) score += 2;
+        if (u.dept?.toLowerCase().includes(user.toLowerCase())) score += 2;
+        if (u.specialization?.toLowerCase().includes(user.toLowerCase())) score += 1;
+        return { user: u, score };
+      })
+      .sort((a, b) => b.score - a.score)
+      .map((entry) => entry.user);
 
     return NextResponse.json({
       status: "ok",
-      users,
+      activeUser,
+      users: scoredUsers,
       tweets,
-      activeUser, // Include the active user in the response
+      recommendations: {
+        topTags,
+      },
     });
   } catch (err) {
     console.error("Error searching users and tweets:", err);
